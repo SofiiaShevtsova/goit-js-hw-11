@@ -30,7 +30,7 @@ async function getImage(event) {
     const response = await axios.get(
       `${baseUrl}?${options}` + `page=${page}&${nameImages}`
     );
-
+Notify.info(`Hooray! We found ${response.data.totalHits} images.`)
     totalHits = response.data.totalHits - 40
 
     if (response.data.hits.length === 0) {
@@ -42,6 +42,16 @@ async function getImage(event) {
 
     boxGallery.innerHTML = `${makeImagesCards(response.data.hits)}`;
     btnLoadMore.classList.add("active");
+
+const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: "smooth",
+});
+
   } catch (error) {
     Notify.failure(error);
   }
@@ -72,12 +82,13 @@ async function onLoadMoreClick () {
       "beforeend",
       `${makeImagesCards(response.data.hits)}`
     );
+    lightbox.refresh()
 
   } catch (error) {
     Notify.failure(error);
   }
     if (totalHits < 40) {
-    Notify.info("We're sorry, but you've reached the end of search results.")
+    Notify.failure("We're sorry, but you've reached the end of search results.")
       btnLoadMore.classList.remove("active");
       return
 }
@@ -85,6 +96,8 @@ async function onLoadMoreClick () {
   totalHits -= 40
 
 };
+
+
 
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);

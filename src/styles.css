@@ -44,7 +44,7 @@ border-top-left-radius: 10px;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
     font-size: 16px;
     font-weight: 500;
@@ -52,14 +52,21 @@ border-top-left-radius: 10px;
 }
 
 .info {
+    display: flex;
+    gap: 10px;
     padding: 10px;
     margin: 0;
+    text-align: center;
 }
 
 .info-item {
+    width: 25% - 10px;
     margin: 0;
     padding: 2px;
-    text-decoration: underline;
+}
+
+b {
+    display: block;
 }
 
 .load-more{

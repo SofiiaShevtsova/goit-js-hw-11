@@ -17,20 +17,20 @@ export const makeImagesCards = (array) => {
    </a>
   <div class="info">
     <p class="info-item">
-    ${likes}
       <b>Likes</b>
+          ${likes}
     </p>
     <p class="info-item">
-    ${views}
       <b>Views</b>
+          ${views}
     </p>
     <p class="info-item">
-    ${comments}
       <b>Comments</b>
+          ${comments}
     </p>
     <p class="info-item">
-    ${downloads}
       <b>Downloads</b>
+          ${downloads}
     </p>
   </div>
 </div> `;
