@@ -74,7 +74,7 @@ async function onLoadMoreClick() {
       `${makeImagesCards(response.data.hits)}`
     );
   } catch (error) {
-    console.log(error);
+    Notify.failure(error);
   } finally {
     if (totalHits < 40) {
       Notify.failure(
