@@ -31,8 +31,6 @@ async function getImage(event) {
     const response = await axios.get(
       `${baseUrl}?${options}` + `page=${page}&${nameImages}`
     );
-    Notify.info(`Hooray! We found ${response.data.totalHits} images.`);
-    totalHits = response.data.totalHits - 40;
 
     if (response.data.hits.length === 0) {
       Notify.failure(
@@ -40,6 +38,9 @@ async function getImage(event) {
       );
       return;
     }
+
+    Notify.info(`Hooray! We found ${response.data.totalHits} images.`);
+    totalHits = response.data.totalHits - 40;
 
     boxGallery.innerHTML = `${makeImagesCards(response.data.hits)}`;
     // btnLoadMore.classList.add("active");
@@ -91,10 +92,10 @@ async function infinityScroll() {
   const { height: cardHeight } =
     boxGallery.firstElementChild.getBoundingClientRect();
   // console.log(document.querySelector("body").getBoundingClientRect().bottom);
-  // window.scrollBy({
-  //   top: cardHeight * 2,
-  //   behavior: "smooth",
-  // });
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: "smooth",
+  });
 
   if (
     document.querySelector("body").getBoundingClientRect().bottom <
