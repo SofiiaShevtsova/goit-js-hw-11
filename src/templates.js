@@ -1,5 +1,5 @@
 export const makeImagesCards = (array) => {
-    const imagesCards = array
+  const imagesCards = array
     .map((image) => {
       const {
         webformatURL,
@@ -9,8 +9,8 @@ export const makeImagesCards = (array) => {
         views,
         comments,
         downloads,
-        } = image;
-        
+      } = image;
+
       return `<div class="photo-card">
         <a class="gallery__link" href="${largeImageURL}">
   <img src="${webformatURL}" alt="${tags}" loading="lazy" width="300px"/>
@@ -35,7 +35,7 @@ export const makeImagesCards = (array) => {
   </div>
 </div> `;
     })
-        .join("");
-    
-    return imagesCards
+    .join("");
+
+  return imagesCards;
 };
