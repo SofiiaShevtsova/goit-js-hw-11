@@ -76,7 +76,7 @@ async function onLoadMoreClick() {
   } catch (error) {
     console.log(error);
   } finally {
-    if (totalHits < 400) {
+    if (totalHits < 40) {
       Notify.failure(
         "We're sorry, but you've reached the end of search results."
       );
