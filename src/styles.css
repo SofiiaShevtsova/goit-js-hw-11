@@ -1,3 +1,6 @@
+body {
+  background-color: bisque;
+}
 .box {
   background-color: green;
   padding: 40px;
