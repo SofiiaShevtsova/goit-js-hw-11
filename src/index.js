@@ -43,6 +43,7 @@ async function getImage(event) {
     totalHits = response.data.totalHits - 40;
 
     boxGallery.innerHTML = `${makeImagesCards(response.data.hits)}`;
+
     // btnLoadMore.classList.add("active");
   } catch (error) {
     Notify.failure(error);
@@ -88,14 +89,18 @@ async function onLoadMoreClick() {
   }
 }
 
+function onGalleryScroll() {
+  const { height: cardHeight } =
+    boxGallery.firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: "smooth",
+  });
+}
+
 async function infinityScroll() {
   const { height: cardHeight } =
     boxGallery.firstElementChild.getBoundingClientRect();
-  // console.log(document.querySelector("body").getBoundingClientRect().bottom);
-  // window.scrollBy({
-  //   top: cardHeight * 2,
-  //   behavior: "smooth",
-  // });
 
   if (
     document.querySelector("body").getBoundingClientRect().bottom <
@@ -108,4 +113,6 @@ async function infinityScroll() {
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);
 document.addEventListener("scroll", throttle(infinityScroll, 500));
+document.addEventListener("scroll", onGalleryScroll);
+
 // btnLoadMore.addEventListener("click", onLoadMoreClick);
