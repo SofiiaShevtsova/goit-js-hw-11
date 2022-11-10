@@ -16,7 +16,7 @@ let page = 1;
 let totalHits = 0;
 
 const options =
-  "key=31187211-d453cf6c0705ee9af6400cbd4&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&";
+  "key=31187211-d453cf6c0705ee9af6400cbd4&min_height=1200&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&";
 const baseUrl = "https://pixabay.com/api/";
 
 async function getImage(event) {
