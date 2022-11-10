@@ -92,10 +92,10 @@ async function infinityScroll() {
   const { height: cardHeight } =
     boxGallery.firstElementChild.getBoundingClientRect();
   // console.log(document.querySelector("body").getBoundingClientRect().bottom);
-  window.scrollBy({
-    top: cardHeight * 2,
-    behavior: "smooth",
-  });
+  // window.scrollBy({
+  //   top: cardHeight * 2,
+  //   behavior: "smooth",
+  // });
 
   if (
     document.querySelector("body").getBoundingClientRect().bottom <
