@@ -75,6 +75,7 @@ async function onLoadMoreClick() {
       "beforeend",
       `${makeImagesCards(response.data.hits)}`
     );
+
   } catch (error) {
     Notify.failure(error);
   } finally {
@@ -89,14 +90,15 @@ async function onLoadMoreClick() {
   }
 }
 
-// function onGalleryScroll() {
-//   const { height: cardHeight } =
-//     boxGallery.firstElementChild.getBoundingClientRect();
-//   window.scrollBy({
-//     top: cardHeight * 2,
-//     behavior: "smooth",
-//   });
-// }
+function onGalleryScroll(event) {
+  console.log(window.scrollBy)
+  const { height: cardHeight } =
+    boxGallery.firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: "smooth",
+  });
+}
 
 async function infinityScroll() {
   const { height: cardHeight } =
@@ -113,6 +115,6 @@ async function infinityScroll() {
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);
 document.addEventListener("scroll", throttle(infinityScroll, 500));
-// document.addEventListener("scroll", onGalleryScroll);
+window.addEventListener("scroll", onGalleryScroll);
 
 // btnLoadMore.addEventListener("click", onLoadMoreClick);
