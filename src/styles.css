@@ -114,3 +114,26 @@ img {
 img:hover {
   transform: scale(1.25);
 }
+
+.pause {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 10px;
+  width: 25%;
+  margin: 10px auto;
+  display: none;
+  background-color: green;
+  border-radius: 10px;
+  border-color: transparent;
+
+  font-size: 24px;
+  font-weight: 500;
+  color: blanchedalmond;
+}
+
+.pause.active {
+  display: block;
+}

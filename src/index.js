@@ -9,6 +9,8 @@ import throttle from "lodash.throttle";
 
 const form = document.querySelector("#search-form");
 const boxGallery = document.querySelector(".gallery");
+const btnPause = document.querySelector(".pause");
+
 // const btnLoadMore = document.querySelector(".load-more");
 
 let nameImages = "";
@@ -22,6 +24,7 @@ const baseUrl = "https://pixabay.com/api/";
 async function getImage(event) {
   event.preventDefault();
   // btnLoadMore.classList.remove("active");
+  btnPause.classList.remove("active");
   boxGallery.innerHTML = ``;
   page = 1;
 
@@ -75,7 +78,6 @@ async function onLoadMoreClick() {
       "beforeend",
       `${makeImagesCards(response.data.hits)}`
     );
-
   } catch (error) {
     Notify.failure(error);
   } finally {
@@ -91,13 +93,14 @@ async function onLoadMoreClick() {
 }
 
 function onGalleryScroll(event) {
-  console.log(window.scrollBy)
   const { height: cardHeight } =
     boxGallery.firstElementChild.getBoundingClientRect();
   window.scrollBy({
     top: cardHeight * 2,
     behavior: "smooth",
   });
+
+  btnPause.classList.add("active");
 }
 
 async function infinityScroll() {
@@ -112,9 +115,18 @@ async function infinityScroll() {
   }
 }
 
+function onPauseClick(event) {
+  window.scrollBy({
+    bottom: document.querySelector("body").getBoundingClientRect().bottom,
+  });
+  window.removeEventListener("scroll", throttle(onGalleryScroll, 0));
+}
+
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);
 document.addEventListener("scroll", throttle(infinityScroll, 500));
-window.addEventListener("scroll", onGalleryScroll);
+window.addEventListener("scroll", throttle(onGalleryScroll, 0));
+
+btnPause.addEventListener("click", onPauseClick);
 
 // btnLoadMore.addEventListener("click", onLoadMoreClick);
