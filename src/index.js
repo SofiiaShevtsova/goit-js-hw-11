@@ -37,19 +37,28 @@ async function getImage(event) {
 
     if (response.data.hits.length === 0) {
       Notify.failure(
-        "Sorry, there are no images matching your search query. Please try again."
+        "Sorry, there are no images matching your search query. Please try again.",
+        { width: "500px", distance: "50px", fontSize: "24px" }
       );
       return;
     }
 
-    Notify.info(`Hooray! We found ${response.data.totalHits} images.`);
+    Notify.info(`Hooray! We found ${response.data.totalHits} images.`, {
+      width: "500px",
+      distance: "50px",
+      fontSize: "24px",
+    });
     totalHits = response.data.totalHits - 40;
 
     boxGallery.innerHTML = `${makeImagesCards(response.data.hits)}`;
 
     // btnLoadMore.classList.add("active");
   } catch (error) {
-    Notify.failure(error);
+    Notify.failure(error, {
+      width: "500px",
+      distance: "50px",
+      fontSize: "24px",
+    });
   }
 }
 
@@ -79,11 +88,16 @@ async function onLoadMoreClick() {
       `${makeImagesCards(response.data.hits)}`
     );
   } catch (error) {
-    Notify.failure(error);
+    Notify.failure(error, {
+      width: "500px",
+      distance: "50px",
+      fontSize: "24px",
+    });
   } finally {
     if (totalHits < 40) {
       Notify.failure(
-        "We're sorry, but you've reached the end of search results."
+        "We're sorry, but you've reached the end of search results.",
+        { width: "500px", distance: "50px", fontSize: "24px" }
       );
       // btnLoadMore.classList.remove("active");
       return;
