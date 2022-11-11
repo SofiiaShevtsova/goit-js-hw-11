@@ -10,6 +10,7 @@ import throttle from "lodash.throttle";
 const form = document.querySelector("#search-form");
 const boxGallery = document.querySelector(".gallery");
 const btnPause = document.querySelector(".pause");
+const btnToStart = document.querySelector(".start")
 
 // const btnLoadMore = document.querySelector(".load-more");
 
@@ -25,6 +26,7 @@ async function getImage(event) {
   event.preventDefault();
   // btnLoadMore.classList.remove("active");
   btnPause.classList.remove("active");
+  btnToStart.classList.remove("active");
   boxGallery.innerHTML = ``;
   page = 1;
 
@@ -115,6 +117,8 @@ function onGalleryScroll(event) {
   });
 
   btnPause.classList.add("active");
+    btnToStart.classList.add("active");
+
 }
 
 async function infinityScroll() {
@@ -131,16 +135,28 @@ async function infinityScroll() {
 
 function onPauseClick(event) {
   window.scrollBy({
-    bottom: document.querySelector("body").getBoundingClientRect().bottom,
+    top: 0,
   });
-  window.removeEventListener("scroll", throttle(onGalleryScroll, 0));
+  // window.removeEventListener("scroll", onGalleryScroll);
+  window.addEventListener("scroll", onGalleryScroll);
+
 }
+
+function toStart() {
+window.scrollTo({
+    top: document.querySelector("body").getBoundingClientRect().top,
+  });
+  window.removeEventListener("scroll", onGalleryScroll);
+}
+     
+  
 
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);
-document.addEventListener("scroll", throttle(infinityScroll, 500));
-window.addEventListener("scroll", throttle(onGalleryScroll, 0));
+window.addEventListener("scroll", throttle(infinityScroll, 500));
+window.addEventListener("scroll", onGalleryScroll);
 
 btnPause.addEventListener("click", onPauseClick);
+btnToStart.addEventListener("click", toStart)
 
 // btnLoadMore.addEventListener("click", onLoadMoreClick);

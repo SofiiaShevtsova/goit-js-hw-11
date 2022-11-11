@@ -137,3 +137,29 @@ img:hover {
 .pause.active {
   display: block;
 }
+
+.start {
+  position: fixed;
+  bottom: 10px;
+  left: 90%;
+
+  padding: 10px;
+  display: none;
+  background-color: green;
+  border-radius: 10px;
+  border-color: transparent;
+
+  font-size: 24px;
+  font-weight: 500;
+  color: blanchedalmond;
+}
+
+.start span {
+  display: block;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.start.active {
+  display: block;
+}
