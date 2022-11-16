@@ -78,18 +78,20 @@ function onImageClick(event) {
 }
 
 async function loadMore() {
-  try {
-    page += 1;
+      page += 1;
 
     if (totalPages < page) {
       Notify.failure(
         "We're sorry, but you've reached the end of search results.",
         { width: "500px", distance: "50px", fontSize: "24px" }
       );
+
+      window.removeEventListener("scroll", throttle(infinityScroll, 500));
+
       // btnLoadMore.classList.remove("active");
       return;
     }
-
+  try {
     const response = await axios.get(
       `${baseUrl}?${options}` + `page=${page}&${nameImages}`
     );
