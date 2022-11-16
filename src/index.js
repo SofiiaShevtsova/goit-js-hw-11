@@ -10,7 +10,7 @@ import throttle from "lodash.throttle";
 const form = document.querySelector("#search-form");
 const boxGallery = document.querySelector(".gallery");
 const btnPause = document.querySelector(".pause");
-const btnToStart = document.querySelector(".start")
+const btnToStart = document.querySelector(".start");
 
 // const btnLoadMore = document.querySelector(".load-more");
 
@@ -79,9 +79,9 @@ function onImageClick(event) {
 
 async function loadMore() {
   try {
-        page += 1;
+    page += 1;
 
-      if (totalPages < page) {
+    if (totalPages < page) {
       Notify.failure(
         "We're sorry, but you've reached the end of search results.",
         { width: "500px", distance: "50px", fontSize: "24px" }
@@ -98,8 +98,6 @@ async function loadMore() {
       "beforeend",
       `${makeImagesCards(response.data.hits)}`
     );
-
-     
   } catch (error) {
     Notify.failure(error, {
       width: "500px",
@@ -118,8 +116,7 @@ function onGalleryScroll(event) {
   });
 
   btnPause.classList.add("active");
-    btnToStart.classList.add("active");
-
+  btnToStart.classList.add("active");
 }
 
 async function infinityScroll() {
@@ -140,17 +137,14 @@ function onPauseClick(event) {
   });
   // window.removeEventListener("scroll", onGalleryScroll);
   window.addEventListener("scroll", onGalleryScroll);
-
 }
 
 function toStart() {
-window.scrollTo({
+  window.scrollTo({
     top: document.querySelector("body").getBoundingClientRect().top,
   });
   window.removeEventListener("scroll", onGalleryScroll);
 }
-     
-  
 
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);
@@ -159,6 +153,6 @@ window.addEventListener("scroll", throttle(infinityScroll, 500));
 window.addEventListener("scroll", onGalleryScroll);
 
 btnPause.addEventListener("click", onPauseClick);
-btnToStart.addEventListener("click", toStart)
+btnToStart.addEventListener("click", toStart);
 
 // btnLoadMore.addEventListener("click", onLoadMoreClick);
