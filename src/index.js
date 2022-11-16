@@ -16,7 +16,7 @@ const btnToStart = document.querySelector(".start")
 
 let nameImages = "";
 let page = 1;
-let totalHits = 0;
+let totalPages = 0;
 
 const options =
   "key=31187211-d453cf6c0705ee9af6400cbd4&min_height=1200&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&";
@@ -50,7 +50,7 @@ async function getImage(event) {
       distance: "50px",
       fontSize: "24px",
     });
-    totalHits = response.data.totalHits - 40;
+    totalPages = Math.ceil(response.data.totalHits / 40);
 
     boxGallery.innerHTML = `${makeImagesCards(response.data.hits)}`;
 
@@ -77,9 +77,18 @@ function onImageClick(event) {
   });
 }
 
-async function onLoadMoreClick() {
+async function loadMore() {
   try {
-    page += 1;
+        page += 1;
+
+      if (totalPages < page) {
+      Notify.failure(
+        "We're sorry, but you've reached the end of search results.",
+        { width: "500px", distance: "50px", fontSize: "24px" }
+      );
+      // btnLoadMore.classList.remove("active");
+      return;
+    }
 
     const response = await axios.get(
       `${baseUrl}?${options}` + `page=${page}&${nameImages}`
@@ -89,22 +98,14 @@ async function onLoadMoreClick() {
       "beforeend",
       `${makeImagesCards(response.data.hits)}`
     );
+
+     
   } catch (error) {
     Notify.failure(error, {
       width: "500px",
       distance: "50px",
       fontSize: "24px",
     });
-  } finally {
-    if (totalHits < 40) {
-      Notify.failure(
-        "We're sorry, but you've reached the end of search results.",
-        { width: "500px", distance: "50px", fontSize: "24px" }
-      );
-      // btnLoadMore.classList.remove("active");
-      return;
-    }
-    totalHits -= 40;
   }
 }
 
@@ -129,7 +130,7 @@ async function infinityScroll() {
     document.querySelector("body").getBoundingClientRect().bottom <
     cardHeight * 5
   ) {
-    onLoadMoreClick();
+    loadMore();
   }
 }
 
@@ -153,6 +154,7 @@ window.scrollTo({
 
 form.addEventListener("submit", getImage);
 boxGallery.addEventListener("click", onImageClick);
+
 window.addEventListener("scroll", throttle(infinityScroll, 500));
 window.addEventListener("scroll", onGalleryScroll);
 
